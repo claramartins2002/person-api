@@ -1,16 +1,27 @@
 package com.clara.personApi.controller;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.clara.personApi.dto.MessageResponse;
+import com.clara.personApi.entity.Person;
+import com.clara.personApi.repository.PersonRepository;
+import com.clara.personApi.services.PersonServices;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/people")
 public class PersonController {
+    private PersonServices personServices;
+    @Autowired
+    public PersonController(PersonServices personService){
+        this.personServices= personService;
+    }
 
-    @GetMapping
-    public String getBook() {
-        return "API test!";
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public MessageResponse createPerson(@RequestBody Person person) {
+      return personServices.createPerson(person);
     }
 }
