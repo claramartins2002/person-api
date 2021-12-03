@@ -3,6 +3,7 @@ package com.clara.personApi.controller;
 
 import com.clara.personApi.dto.MessageResponse;
 import com.clara.personApi.entity.Person;
+import com.clara.personApi.exceptions.PersonNotFoundException;
 import com.clara.personApi.repository.PersonRepository;
 import com.clara.personApi.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,10 @@ public class PersonController {
     @GetMapping
     public List<Person> listAll() {
      return  personServices.listAll();
+    }
+
+    @GetMapping("/{id}")
+    public Person findById(@PathVariable Long id) throws PersonNotFoundException {
+        return personServices.findByid(id);
     }
 }
