@@ -2,11 +2,14 @@ package com.clara.personApi.services;
 
 
 import com.clara.personApi.dto.MessageResponse;
+import com.clara.personApi.dto.request.PersonDto;
 import com.clara.personApi.entity.Person;
 import com.clara.personApi.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 @Service
 public class PersonServices {
@@ -18,8 +21,14 @@ public class PersonServices {
     }
 
     public MessageResponse createPerson(@RequestBody Person person) {
-        Person savedPerson = personRepository.save(person);
+
+
+        Person savedPerson= personRepository.save(person);
         return MessageResponse.builder().
                 message("Created person with id "+savedPerson.getId()).build();
+    }
+
+    public List<Person> listAll() {
+        return personRepository.findAll();
     }
 }

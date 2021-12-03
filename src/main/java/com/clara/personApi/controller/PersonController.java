@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/people")
 public class PersonController {
@@ -21,7 +24,12 @@ public class PersonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponse createPerson(@RequestBody Person person) {
+    public MessageResponse createPerson(@RequestBody @Valid Person person) {
       return personServices.createPerson(person);
+    }
+
+    @GetMapping
+    public List<Person> listAll() {
+     return  personServices.listAll();
     }
 }
