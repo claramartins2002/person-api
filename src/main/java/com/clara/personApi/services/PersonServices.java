@@ -47,4 +47,12 @@ public class PersonServices {
         personRepository.deleteById(id);
 
     }
+
+    public MessageResponse updatePerson(Long id, Person person) throws PersonNotFoundException {
+        personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
+        Person savedPerson= personRepository.save(person);
+        return MessageResponse.builder().
+                message("Updated person with id "+savedPerson.getId()).build();
+
+    }
 }
